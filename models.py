@@ -16,6 +16,7 @@ class Users(Base):
     hashed_password: Mapped[str] = mapped_column(String(200),nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True)
     role: Mapped[str] = mapped_column(String(30))
+    phone_number: Mapped[str] = mapped_column(String(30))
 
     todos: Mapped[List["Todos"]] = relationship(
         back_populates="user", cascade="all, delete-orphan")
