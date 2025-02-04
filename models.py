@@ -13,9 +13,9 @@ class Users(Base):
     username: Mapped[str] = mapped_column(String(30), unique=True)
     first_name: Mapped[Optional[str]] = mapped_column(String(30), default=None)
     last_name: Mapped[Optional[str]] = mapped_column(String(30), default=None)
-    hashed_password: Mapped[str] = mapped_column(nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String(200),nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True)
-    role: Mapped[str]
+    role: Mapped[str] = mapped_column(String(30))
 
     todos: Mapped[List["Todos"]] = relationship(
         back_populates="user", cascade="all, delete-orphan")
@@ -40,8 +40,8 @@ class Todos(Base):
 
     # index = True makes the id unique
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    title: Mapped[str] = mapped_column(nullable=False)
-    description: Mapped[Optional[str]]
+    title: Mapped[str] = mapped_column(String(100), nullable=False)
+    description: Mapped[Optional[str]] = mapped_column(String(200))
     priority: Mapped[Optional[int]]
     complete: Mapped[bool] = mapped_column(default=False)
     owner: Mapped[int] = mapped_column(ForeignKey("users.id"))
